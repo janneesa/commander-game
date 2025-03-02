@@ -31,7 +31,7 @@ p {
 }
 
 nav {
-  @apply bg-navbar backdrop-blur-md shadow-md rounded-2xl mr-4 ml-4 top-4 sticky p-4 flex justify-between items-center z-50;
+  @apply bg-card dark:bg-darkCard backdrop-blur-md shadow-md rounded-2xl mr-4 ml-4 top-4 sticky p-4 flex justify-between items-center z-50;
 }
 
 label {
@@ -39,7 +39,7 @@ label {
 }
 
 input {
-  @apply w-full px-2 py-2 border border-gray-300 dark:border-gray-500 rounded-lg bg-card dark:bg-darkCard text-primaryText dark:text-darkPrimaryText;
+  @apply w-full px-2 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-card dark:bg-darkCard text-primaryText dark:text-darkPrimaryText;
 }
 
 .App {

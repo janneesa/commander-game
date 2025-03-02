@@ -3,8 +3,8 @@ import Card from "../components/Card";
 import Colors from "../components/Colors";
 import Spinner from "../util/Spinner";
 import useFetchAny from "../hooks/useFetchAny";
-import { UserContext } from "../context/UserContext";
 import ResultCard from "../components/ResultCard";
+import { UserContext } from "../context/UserContext";
 
 export default function DailyCommander() {
   const { user, update, loading } = useContext(UserContext);
@@ -74,7 +74,7 @@ export default function DailyCommander() {
 
   // Loading states
   if (isLoading || loading) return <Spinner />;
-  if (error) return <p>{error}</p>;
+  if (error) return <p>Error: {error}</p>;
 
   // Show failure message if the user has lost
   if (user.life === 0 && user.solved === false) {
@@ -115,10 +115,10 @@ export default function DailyCommander() {
           </button>
         </div>
         <div className="mt-4 flex flex-row space-x-4">
-          <div className="px-2 py-2 border border-gray-300 dark:border-gray-500 rounded-lg w-fit">
+          <div className="px-2 py-2 border border-gray-300 dark:border-gray-700 rounded-lg w-fit">
             HP: {user?.life} / 4
           </div>
-          <div className="px-2 py-2 border border-gray-300 dark:border-gray-500 rounded-lg w-fit">
+          <div className="px-2 py-2 border border-gray-300 dark:border-gray-700 rounded-lg w-fit">
             Types left: {types?.length}
           </div>
         </div>

@@ -6,7 +6,7 @@ export default function ResultCard({ solved }) {
       <Card>
         {solved ? (
           <>
-            <h2 className="text-2xl text-center font-bold text-green-500">
+            <h2 className="text-2xl text-center font-bold text-green-500 dark:text-green-400">
               Victory!
             </h2>
             <p className="text-lg text-center text-primaryText dark:text-darkPrimaryText mt-2">
@@ -15,7 +15,7 @@ export default function ResultCard({ solved }) {
           </>
         ) : (
           <>
-            <h2 className="text-2xl text-center font-bold text-red-500">
+            <h2 className="text-2xl text-center font-bold text-red-500 dark:text-red-400">
               Try Again Tomorrow
             </h2>
             <p className="text-lg text-center text-primaryText dark:text-darkPrimaryText mt-2">
