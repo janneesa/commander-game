@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   loginUser,
   signupUser,
+  getUserById,
   updateUser,
 } = require("../controllers/userController");
 const requireAuth = require("../middlewares/requireAuth");
@@ -12,6 +13,9 @@ router.post("/login", loginUser);
 
 // signup route
 router.post("/signup", signupUser);
+
+// get user by id route
+router.get("/:userId", getUserById);
 
 // requireAuth middleware
 router.use(requireAuth);

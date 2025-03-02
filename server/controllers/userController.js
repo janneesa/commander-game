@@ -65,6 +65,28 @@ const loginUser = async (req, res) => {
   }
 };
 
+// @desc    Get user by id
+// @route   GET /api/users/:userId
+// @access  Public
+const getUserById = async (req, res) => {
+  const { userId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 // @desc    Update user data
 // @route   PUT /api/users/:userId
 // @access  Private
@@ -98,4 +120,5 @@ module.exports = {
   signupUser,
   loginUser,
   updateUser,
+  getUserById,
 };

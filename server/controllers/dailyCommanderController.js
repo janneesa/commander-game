@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const DailyCommander = require("../models/dailyCommanderModel");
+const User = require("../models/userModel");
 
 // @desc Create new daily commander in the database if one does not exist
 const createNewDailyCommander = async (req, res) => {
@@ -16,7 +17,7 @@ const createNewDailyCommander = async (req, res) => {
     const image = dailyCommanderData.image_uris.art_crop;
     const colors = dailyCommanderData.colors;
     const whole_type_line = dailyCommanderData.type_line.split("—");
-    const card_type = whole_type_line[0].trim().split(" ");
+    const card_type = whole_type_line[0].trim();
     const type_line = whole_type_line[1].trim().toLowerCase().split(" ");
     const newDailyCommander = new DailyCommander({
       name,
@@ -26,6 +27,7 @@ const createNewDailyCommander = async (req, res) => {
       type_line,
     });
     const savedDailyCommander = await newDailyCommander.save();
+    await User.updateMany({}, { solved: false, life: 4 });
     res.json(savedDailyCommander);
   } catch (error) {
     console.error(error);
