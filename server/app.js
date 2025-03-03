@@ -27,12 +27,12 @@ app.use("/api/user", userRouter);
 // Use the drinkRouter for all "/drink" routes
 app.use("/api/daily", dailyCommanderRouter);
 
-// // Serve the static files from the React app
-// app.use(express.static(path.join(__dirname, "../client/dist")));
+// Serve the static files from the React app
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
 
 app.use(unknownEndpoint);
 app.use(errorHandler);
