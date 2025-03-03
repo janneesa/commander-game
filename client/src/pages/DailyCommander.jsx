@@ -89,6 +89,12 @@ export default function DailyCommander() {
   return (
     <div className="flex flex-col items-center mr-4 ml-4">
       <Card>
+        <p className="text-2xl font-semibold text-primaryText mb-2 dark:text-darkPrimaryText">
+          Daily Commander
+        </p>
+        <p className="text-secondaryText dark:text-darkSecondaryText mb-2">
+          Guess the daily commander's creature types!
+        </p>
         <div className="flex flex-row justify-between items-center">
           <p className="text-primaryText dark:text-darkPrimaryText text-lg">
             {commander?.name}
