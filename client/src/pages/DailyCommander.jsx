@@ -115,10 +115,10 @@ export default function DailyCommander() {
           </button>
         </div>
         <div className="mt-4 flex flex-row space-x-4">
-          <div className="px-2 py-2 border border-gray-300 dark:border-gray-700 rounded-lg w-fit">
+          <div className="px-2 py-2 border text-primaryText dark:text-darkPrimaryText border-gray-300 dark:border-gray-700 rounded-lg w-fit">
             HP: {user?.life} / 4
           </div>
-          <div className="px-2 py-2 border border-gray-300 dark:border-gray-700 rounded-lg w-fit">
+          <div className="px-2 py-2 border text-primaryText dark:text-darkPrimaryText border-gray-300 dark:border-gray-700 rounded-lg w-fit">
             Types left: {types?.length}
           </div>
         </div>
