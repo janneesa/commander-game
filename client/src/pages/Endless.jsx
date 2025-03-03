@@ -32,6 +32,7 @@ export default function DailyCommander() {
       toast.error("Game Over!");
       fetchEndlessCommander();
       setLife(4);
+      setScore(0);
     }
   }, [life]);
 
