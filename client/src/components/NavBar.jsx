@@ -21,7 +21,7 @@ export default function Navbar() {
     <nav>
       <Link
         to="/"
-        className="text-primaryText dark:text-darkPrimaryText font-semibold text-lg px-4"
+        className="text-primaryText dark:text-darkPrimaryText font-semibold text-xl px-4"
       >
         Commander Game
       </Link>
@@ -58,7 +58,10 @@ export default function Navbar() {
         </div>
         {/* Toggle Switch End */}
         <Link className="button" to="/">
-          Game
+          Daily
+        </Link>
+        <Link className="button" to="/endless">
+          Endless
         </Link>
         {user ? (
           <button className="button-secondary" onClick={handleLogout}>
@@ -121,7 +124,14 @@ export default function Navbar() {
             to="/"
             onClick={() => setIsOpen(false)}
           >
-            Game
+            Daily
+          </Link>
+          <Link
+            className="py-2 px-3 text-primaryText dark:text-darkPrimaryText hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
+            to="/endless"
+            onClick={() => setIsOpen(false)}
+          >
+            Endless
           </Link>
           {user ? (
             <>

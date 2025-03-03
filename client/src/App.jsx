@@ -4,6 +4,7 @@ import { UserContext } from "./context/UserContext";
 
 // Pages
 import DailyCommander from "./pages/DailyCommander";
+import Endless from "./pages/Endless";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NavBar from "./components/NavBar";
@@ -19,6 +20,7 @@ function App() {
           <div className="App-content"></div>
           <Routes>
             <Route path="/" element={user ? <DailyCommander /> : <Login />} />
+            <Route path="/endless" element={<Endless />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
           </Routes>
