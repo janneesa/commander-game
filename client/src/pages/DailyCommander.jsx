@@ -29,7 +29,7 @@ export default function DailyCommander() {
 
   // Update user data in the database
   const updateUserData = async (updatedUser) => {
-    await fetchFunction(`/api/user/${user.id}`, {
+    const newupdatedUser = await fetchFunction(`/api/user/solve/${user.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -37,6 +37,7 @@ export default function DailyCommander() {
       },
       body: JSON.stringify(updatedUser),
     }).catch(console.error);
+    update(newupdatedUser);
   };
 
   // Handle type guess
@@ -46,7 +47,7 @@ export default function DailyCommander() {
     const guessedType = typeField.toLowerCase();
     setTypeField("");
 
-    if (types.includes(guessedType)) {
+    if (types.includes(guessedType) || types.length === 0) {
       toast.success(`${guessedType} is correct!`);
       setCorrectTypes((prev) => [...prev, guessedType]);
       setTypes((prev) => prev.filter((type) => type !== guessedType));
@@ -56,9 +57,7 @@ export default function DailyCommander() {
         const updatedUser = {
           ...user,
           solved: true,
-          highscore: user.highscore + user.life,
         };
-        update(updatedUser);
         updateUserData(updatedUser);
       }
     } else {
@@ -66,11 +65,9 @@ export default function DailyCommander() {
       if (user.life > 1) {
         const updatedUser = { ...user, life: user.life - 1 };
         update(updatedUser);
-        //updateUserData(updatedUser);
       } else {
         // If life reaches 0, mark as failed
         const updatedUser = { ...user, life: 0, solved: false };
-        update(updatedUser);
         updateUserData(updatedUser);
       }
     }
@@ -81,12 +78,12 @@ export default function DailyCommander() {
   if (error) return <p>Error: {error}</p>;
 
   // Show failure message if the user has lost
-  if (user.life === 0 && user.solved === false) {
+  if (user.canSolve === false && user.solved === false) {
     return <ResultCard solved={false} />;
   }
 
   // Show victory message if the user has won
-  if (user.solved) {
+  if (user.canSolve === false && user.solved) {
     return <ResultCard solved={true} />;
   }
 

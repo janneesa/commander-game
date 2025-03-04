@@ -56,6 +56,17 @@ const loginUser = async (req, res) => {
 
     if (user) {
       const token = generateToken(user.id);
+      if (user.solvedDate !== new Date().toISOString().split("T")[0]) {
+        user.canSolve = true;
+        user.solved = false;
+        user.life = 4;
+      }
+
+      await User.findByIdAndUpdate(
+        user.id,
+        { solved: false, canSolve: true, life: 4 },
+        { new: true }
+      );
       res.status(200).json({ ...user, token });
     } else {
       res.status(400).json({ error: "Invalid email or password" });
@@ -116,9 +127,55 @@ const updateUser = async (req, res) => {
   }
 };
 
+// @desc    This function is used to mark if the daily commander was solved or not, update users highscore, solvedDate and canSolve
+// @route   PUT /api/user/solve/:userId
+// @access  Private
+const solveCommander = async (req, res) => {
+  const { userId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: "Invalid user ID" });
+  }
+
+  try {
+    // Fetch the user from the database
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // If users canSolve is false, return error
+    if (!user.canSolve) {
+      return res.status(400).json({ message: "User can't solve today" });
+    }
+
+    // Create String of today's date in the format "YYYY-MM-DD"
+    const today = new Date();
+    const date = today.toISOString().split("T")[0];
+
+    // Updated user fields
+    const newUser = {
+      highscore: user.highscore + req.body.life,
+      solved: req.body.solved,
+      solvedDate: date,
+      canSolve: false,
+    };
+
+    // Update user fields with req.body
+    Object.assign(user, newUser);
+
+    // Save the updated user
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   signupUser,
   loginUser,
   updateUser,
   getUserById,
+  solveCommander,
 };

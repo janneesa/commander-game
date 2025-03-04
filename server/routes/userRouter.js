@@ -5,6 +5,7 @@ const {
   signupUser,
   getUserById,
   updateUser,
+  solveCommander,
 } = require("../controllers/userController");
 const requireAuth = require("../middlewares/requireAuth");
 
@@ -19,6 +20,9 @@ router.get("/:userId", getUserById);
 
 // requireAuth middleware
 router.use(requireAuth);
+
+// solve commander route
+router.put("/solve/:userId", solveCommander);
 
 // update user route
 router.put("/:userId", updateUser);

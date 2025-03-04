@@ -27,6 +27,14 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    solvedDate: {
+      type: String,
+      default: "",
+    },
+    canSolve: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

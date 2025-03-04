@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const DailyCommander = require("../models/dailyCommanderModel");
-const User = require("../models/userModel");
 
+// @desc Fetch a random commander from the Scryfall API
 const fetchCommander = async () => {
   const fetch = (await import("node-fetch")).default;
   const response = await fetch(
@@ -44,7 +44,6 @@ const createNewDailyCommander = async (req, res) => {
       type_line,
     });
     const savedDailyCommander = await newDailyCommander.save();
-    await User.updateMany({}, { solved: false, life: 4 });
     res.json(savedDailyCommander);
   } catch (error) {
     console.error(error);
