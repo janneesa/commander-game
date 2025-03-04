@@ -50,7 +50,6 @@ export default function DailyCommander() {
       setCorrectTypes((prev) => [...prev, guessedType]);
       setTypes((prev) => prev.filter((type) => type !== guessedType));
       setScore((prev) => prev + 1);
-      toast.success(`${guessedType} is correct!`);
 
       // If all types guessed correctly, mark as solved
       if (types.length === 1) {
@@ -62,7 +61,6 @@ export default function DailyCommander() {
     } else {
       toast.error(`${guessedType} is incorrect!`);
       setLife((prev) => prev - 1);
-      toast.error(`${guessedType} is incorrect!`);
     }
   };
 
