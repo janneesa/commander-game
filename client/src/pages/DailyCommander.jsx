@@ -37,7 +37,9 @@ export default function DailyCommander() {
       },
       body: JSON.stringify(updatedUser),
     }).catch(console.error);
-    update(newupdatedUser);
+    if (newupdatedUser) {
+      update(newupdatedUser);
+    }
   };
 
   // Handle type guess

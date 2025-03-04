@@ -32,6 +32,7 @@ export default function DailyCommander() {
       fetchEndlessCommander();
       setLife(4);
       setScore(0);
+      setCorrectTypes([]);
     }
   }, [life]);
 
