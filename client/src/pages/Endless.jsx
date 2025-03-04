@@ -23,7 +23,6 @@ export default function DailyCommander() {
   useEffect(() => {
     if (commander) {
       setTypes(commander.type_line || []);
-      console.log(commander);
     }
   }, [commander]);
 
