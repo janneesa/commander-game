@@ -34,21 +34,28 @@ const Login = () => {
   return (
     <div className="login">
       <Card>
-        <h2>Login</h2>
-        <form onSubmit={handleFormSubmit}>
-          <label>Email address:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button className="button mt-2">Login</button>
+        <h2 className="text-xl font-semibold text-primaryText dark:text-darkPrimaryText">
+          Login
+        </h2>
+        <form className="mt-2 space-y-2" onSubmit={handleFormSubmit}>
+          <div>
+            <label>Email address:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button className="button">Login</button>
         </form>
       </Card>
     </div>

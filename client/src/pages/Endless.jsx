@@ -41,11 +41,13 @@ export default function DailyCommander() {
   };
 
   const checkType = () => {
+    if (!typeField) return;
+
     const guessedType = typeField.toLowerCase();
     setTypeField("");
 
     if (types.includes(guessedType)) {
-      console.log("Correct!");
+      toast.success(`${guessedType} is correct!`);
       setCorrectTypes((prev) => [...prev, guessedType]);
       setTypes((prev) => prev.filter((type) => type !== guessedType));
       setScore((prev) => prev + 1);
@@ -59,7 +61,7 @@ export default function DailyCommander() {
         toast.success("Commander Solved!");
       }
     } else {
-      console.log("Incorrect!");
+      toast.error(`${guessedType} is incorrect!`);
       setLife((prev) => prev - 1);
       toast.error(`${guessedType} is incorrect!`);
     }

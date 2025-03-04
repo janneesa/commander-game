@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useContext, useEffect, useState, useCallback, use } from "react";
 import Card from "../components/Card";
 import Colors from "../components/Colors";
 import Spinner from "../util/Spinner";
 import useFetchAny from "../hooks/useFetchAny";
 import ResultCard from "../components/ResultCard";
 import { UserContext } from "../context/UserContext";
+import toast from "react-hot-toast";
 
 export default function DailyCommander() {
   const { user, update, loading } = useContext(UserContext);
@@ -27,42 +28,45 @@ export default function DailyCommander() {
   }, [commander]);
 
   // Update user data in the database
-  const updateUserData = useCallback(
-    (updatedUser) => {
-      fetchFunction(`/api/user/${user.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify(updatedUser),
-      }).catch(console.error);
-    },
-    [user, fetchFunction]
-  );
+  const updateUserData = async (updatedUser) => {
+    await fetchFunction(`/api/user/${user.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify(updatedUser),
+    }).catch(console.error);
+  };
 
   // Handle type guess
   const checkType = () => {
+    if (!typeField) return;
+
     const guessedType = typeField.toLowerCase();
     setTypeField("");
 
     if (types.includes(guessedType)) {
-      console.log("Correct!");
+      toast.success(`${guessedType} is correct!`);
       setCorrectTypes((prev) => [...prev, guessedType]);
       setTypes((prev) => prev.filter((type) => type !== guessedType));
 
       // If all types guessed correctly, mark as solved
       if (types.length === 1) {
-        const updatedUser = { ...user, solved: true };
+        const updatedUser = {
+          ...user,
+          solved: true,
+          highscore: user.highscore + user.life,
+        };
         update(updatedUser);
         updateUserData(updatedUser);
       }
     } else {
-      console.log("Incorrect!");
+      toast.error(`${guessedType} is incorrect!`);
       if (user.life > 1) {
         const updatedUser = { ...user, life: user.life - 1 };
         update(updatedUser);
-        updateUserData(updatedUser);
+        //updateUserData(updatedUser);
       } else {
         // If life reaches 0, mark as failed
         const updatedUser = { ...user, life: 0, solved: false };
