@@ -60,13 +60,14 @@ const loginUser = async (req, res) => {
         user.canSolve = true;
         user.solved = false;
         user.life = 4;
+
+        await User.findByIdAndUpdate(
+          user.id,
+          { solved: false, canSolve: true, life: 4 },
+          { new: true }
+        );
       }
 
-      await User.findByIdAndUpdate(
-        user.id,
-        { solved: false, canSolve: true, life: 4 },
-        { new: true }
-      );
       res.status(200).json({ ...user, token });
     } else {
       res.status(400).json({ error: "Invalid email or password" });
@@ -90,6 +91,18 @@ const getUserById = async (req, res) => {
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.solvedDate !== new Date().toISOString().split("T")[0]) {
+      user.canSolve = true;
+      user.solved = false;
+      user.life = 4;
+
+      await User.findByIdAndUpdate(
+        user.id,
+        { solved: false, canSolve: true, life: 4 },
+        { new: true }
+      );
     }
 
     res.status(200).json(user);

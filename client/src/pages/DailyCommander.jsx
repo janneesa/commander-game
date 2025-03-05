@@ -18,6 +18,7 @@ export default function DailyCommander() {
   // Fetch daily commander only once on mount
   useEffect(() => {
     fetchFunction("/api/daily").then(setCommander).catch(console.error);
+    fetchFunction(`/api/user/${user.id}`).then(update).catch(console.error);
   }, []);
 
   // Set creature types from the commander data
@@ -77,7 +78,7 @@ export default function DailyCommander() {
 
   // Loading states
   if (isLoading || loading) return <Spinner />;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>{error}</p>;
 
   // Show failure message if the user has lost
   if (user.canSolve === false && user.solved === false) {
