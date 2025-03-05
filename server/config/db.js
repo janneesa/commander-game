@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("../utils/config");
 
+// Create connection to MongoDB that can be used throughout the application
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(config.MONGO_URI);

@@ -24,7 +24,7 @@ const handleDuplicateError = (error, res) => {
 };
 
 // @desc    Register new user
-// @route   POST /api/users/signup
+// @route   POST /api/user/signup
 // @access  Public
 const signupUser = async (req, res) => {
   const { email, password, confirmPassword } = req.body;
@@ -46,7 +46,7 @@ const signupUser = async (req, res) => {
 };
 
 // @desc    Authenticate a user
-// @route   POST /api/users/login
+// @route   POST /api/user/login
 // @access  Public
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -77,7 +77,7 @@ const loginUser = async (req, res) => {
 };
 
 // @desc    Get user by id
-// @route   GET /api/users/:userId
+// @route   GET /api/user/:userId
 // @access  Public
 const getUserById = async (req, res) => {
   const { userId } = req.params;
@@ -99,7 +99,7 @@ const getUserById = async (req, res) => {
 };
 
 // @desc    Update user data
-// @route   PUT /api/users/:userId
+// @route   PUT /api/user/:userId
 // @access  Private
 const updateUser = async (req, res) => {
   const { userId } = req.params;

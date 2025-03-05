@@ -16,6 +16,7 @@ const path = require("path");
 app.use(cors());
 app.use(express.json());
 
+// Connect to the database using the connectDB function from the config/db.js file
 connectDB();
 
 // Use the requestLogger middleware for all routes
@@ -24,7 +25,7 @@ app.use(requestLogger);
 // Use the userRouter for all "/user" routes
 app.use("/api/user", userRouter);
 
-// Use the drinkRouter for all "/drink" routes
+// Use the dailyRouter for all "/daily" routes
 app.use("/api/daily", dailyCommanderRouter);
 
 // Serve the static files from the React app
