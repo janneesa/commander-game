@@ -9,6 +9,21 @@ const generateToken = (_id) => {
   });
 };
 
+// Ensure the authenticated user is accessing their own account
+const ensureOwnAccount = (req, res, userId) => {
+  if (!req.user?._id) {
+    return res.status(401).json({ message: "Authentication required" });
+  }
+
+  if (!req.user._id.equals(userId)) {
+    return res
+      .status(403)
+      .json({ message: "Not authorized to access this user" });
+  }
+
+  return null;
+};
+
 // Handle user signup errors
 const handleDuplicateError = (error, res) => {
   if (error.code === 11000) {
@@ -87,6 +102,11 @@ const getUserById = async (req, res) => {
     return res.status(400).json({ message: "Invalid user ID" });
   }
 
+  const authError = ensureOwnAccount(req, res, userId);
+  if (authError) {
+    return authError;
+  }
+
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -121,6 +141,11 @@ const updateUser = async (req, res) => {
     return res.status(400).json({ message: "Invalid user ID" });
   }
 
+  const authError = ensureOwnAccount(req, res, userId);
+  if (authError) {
+    return authError;
+  }
+
   try {
     // Fetch the user from the database
     const user = await User.findById(userId);
@@ -148,6 +173,11 @@ const solveCommander = async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ message: "Invalid user ID" });
+  }
+
+  const authError = ensureOwnAccount(req, res, userId);
+  if (authError) {
+    return authError;
   }
 
   try {

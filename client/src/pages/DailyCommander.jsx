@@ -18,7 +18,11 @@ export default function DailyCommander() {
   // Fetch daily commander only once on mount
   useEffect(() => {
     fetchFunction("/api/daily").then(setCommander).catch(console.error);
-    fetchFunction(`/api/user/${user.id}`).then(update).catch(console.error);
+    fetchFunction(`/api/user/${user.id}`, {
+      headers: { Authorization: `Bearer ${user.token}` },
+    })
+      .then(update)
+      .catch(console.error);
   }, []);
 
   // Set creature types from the commander data

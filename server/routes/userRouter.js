@@ -15,11 +15,11 @@ router.post("/login", loginUser);
 // signup route
 router.post("/signup", signupUser);
 
-// get user by id route
-router.get("/:userId", getUserById);
-
 // requireAuth middleware
 router.use(requireAuth);
+
+// get user by id route
+router.get("/:userId", getUserById);
 
 // solve commander route
 router.put("/solve/:userId", solveCommander);
